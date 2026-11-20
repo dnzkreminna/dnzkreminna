@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заходи — ЗДО «Сонечко»</title>
+  <style>
+    :root {
+      --ink: #263b32;
+      --muted: #727d70;
+      --sun: #f6bf43;
+      --orange: #e88751;
+      --green: #567d60;
+      --cream: #fffaf0;
+      --paper: #fffdf8;
+      --pale-green: #eef3e9;
+      --line: #eae8dc;
+      --serif: "Nunito", sans-serif;
+      --sans: "DM Sans", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: linear-gradient(180deg, #fffdf8 0%, #f5f4ee 100%);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, calc(100% - 48px)); margin-inline: auto; }
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      background: transparent;
+      padding: 8px 0;
+      font-size: .8rem;
+      letter-spacing: .04em;
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+    .topbar-home { display: inline-flex; min-height: 36px; flex: 0 0 auto; align-items: center; padding: 7px 12px; border: 1px solid rgba(255, 255, 255, .28); border-radius: 999px; background: rgba(69, 104, 79, .82); color: #fff; font-weight: 700; white-space: nowrap; }
+    .topbar-home:hover { background: rgba(69, 104, 79, .96); }
+    .page {
+      padding: 54px 0 80px;
+    }
+    .header {
+      margin-bottom: 34px;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 20px;
+      height: 2px;
+      background: var(--sun);
+    }
+    h1, h2, h3 { margin: 0 0 12px; font-family: var(--serif); line-height: 1.15; }
+    h1 { font-size: clamp(2.3rem, 5vw, 4rem); letter-spacing: -.05em; }
+    .lead {
+      max-width: 680px;
+      margin: 18px auto 0;
+      color: var(--muted);
+    }
+    .event-draft-note { margin: 18px auto 0; max-width: 760px; padding: 12px 16px; border-radius: 12px; background: var(--pale-green); color: var(--muted); font-size: .82rem; text-align: center; }
+    .event-story { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 30px; margin: 28px 0; padding: 24px; border: 1px solid var(--line); border-radius: 22px; background: #fff; box-shadow: 0 12px 28px rgba(38, 59, 50, .04); scroll-margin-top: 78px; }
+    .event-story > div { display: flex; flex-direction: column; min-width: 0; }
+    .event-story-image { display: block; width: 100%; max-height: 360px; border-radius: 16px; object-fit: cover; align-self: center; }
+    .event-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 18px; }
+    .event-gallery img { display: block; width: 100%; height: 180px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); }
+    .event-story-gallery-left { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); align-items: start; }
+    .event-story-gallery-left .event-visuals { display: grid; gap: 12px; }
+    .event-story-gallery-left .event-story-image { height: 260px; max-height: 260px; }
+    .event-story-gallery-left .event-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+    .event-story-gallery-left .event-gallery img { height: 150px; }
+    .event-story-gallery-left .event-gallery img:nth-child(odd):last-child { grid-column: 1 / -1; }
+    .event-label { display: inline-block; margin-bottom: 10px; color: var(--orange); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .event-story h2 { margin: 0 0 12px; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .event-story p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
+    .event-story .event-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .event-story .event-meta span { padding: 7px 10px; border-radius: 999px; background: var(--pale-green); color: var(--green); font-size: .68rem; font-weight: 700; }
+    .events-back { display: inline-flex; margin-top: 14px; color: var(--green); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .back-link {
+      display: inline-flex;
+      margin-top: 32px;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 30px, 520px); }
+      .topbar-home { min-height: 32px; padding: 6px 9px; font-size: .72rem; }
+      .event-story { grid-template-columns: 1fr; gap: 18px; padding: 16px; }
+      .event-story:nth-of-type(even) .event-story-image { order: 0; }
+      .event-story-image { max-height: 250px; }
+      .event-gallery { grid-template-columns: 1fr; }
+      .event-gallery img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a class="topbar-home" href="index.html">← На головну</a>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="container">
+      <header class="header">
+        <span class="eyebrow">Заходи</span>
+        <h1>Радісні моменти разом</h1>
+        <p class="lead">Свята, спільні зустрічі та цікаві заняття допомагають дітям навчатися, дружити й відкривати нове. Кожна подія об’єднує в одному ритмі дітей, батьків і педагогів, даючи простір для взаємодії, творчості й нових вражень.</p>
+      </header>
+
+      <article class="event-story event-story-gallery-left" id="children-voices">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/golosy-ditei-1.jpg" alt="Акція «Голоси дітей» — діти беруть участь у спільній активності">
+          <div class="event-gallery">
+            <img src="images/golosy-ditei-1.jpg" alt="Акція «Голоси дітей» — учасники в колі">
+            <img src="images/golosy-ditei-2.jpg" alt="Діти на спільній активності під час акції">
+            <img src="images/golosy-ditei-3.jpg" alt="Рухливі ігри дітей під час акції">
+            <img src="images/golosy-ditei-4.jpg" alt="Педагоги та діти на святковій активності">
+            <img src="images/golosy-ditei-5.jpg" alt="Легкість, радість та єдність дітей на заході">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Сімейна та освітня подія</span>
+          <h2>Акція «Голоси дітей»</h2>
+          <p>Акція «Голоси дітей» стала важливим моментом для дітей, батьків і педагогів, які разом створили атмосферу довіри, підтримки та взаєморозуміння.</p>
+          <p>Під час заходу діти брали участь у спільних іграх, творчих вправах і активностях, що допомагали їм виявляти себе, висловлювати свої думки та відчути себе частиною дружньої команди. Така форма взаємодії була особливо важливою для розвитку самовпевненості, зв’язку з дорослими та почуття причетності до спільної справи.</p>
+          <div class="event-meta"><span>Акція</span><span>Діти, батьки, педагоги</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="summer-fun">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/summer-1.jpg" alt="Літні розваги — діти на свіжому повітрі">
+          <div class="event-gallery">
+            <img src="images/summer-1.jpg" alt="Літні розваги в групі">
+            <img src="images/summer-2.jpg" alt="Діти граються на свіжому повітрі">
+            <img src="images/summer-3.jpg" alt="Літні активності в дитячому колективі">
+            <img src="images/summer-4.jpg" alt="Рухливі ігри дітей під час літніх розваг">
+            <img src="images/summer-5.jpg" alt="Веселі літні розваги для дітей">
+            <img src="images/summer-6.jpg" alt="Діти влітку на прогулянці">
+            <img src="images/summer-7.jpg" alt="Діти спілкуються під час літніх розваг">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Літня активність</span>
+          <h2>Літні розваги</h2>
+          <p>Літні розваги дарують дітям радість, рух, сміх і можливість провести час на свіжому повітрі в дружній компанії.</p>
+          <p>Під час таких активностей малюки вчаться грати разом, веселитися без стресу, рухатися, спілкуватися та отримувати позитивні емоції від спільного дозвілля. Такі ігри допомагали підтримувати активність, зміцнювати здоров’я й формувати позитивний настрій на весь день.</p>
+          <div class="event-meta"><span>Літо</span><span>Рухливі ігри</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="day-borshch">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/day-borshch-1.jpg" alt="Тематичне заняття «День борщу»">
+          <div class="event-gallery">
+            <img src="images/day-borshch-1.jpg" alt="Діти готують борщ під час тематичного заняття">
+            <img src="images/day-borshch-2.jpg" alt="Підготовка овочів на занятті">
+            <img src="images/day-borshch-3.jpg" alt="Тематична кулинарна активність для дітей">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Тематичне заняття</span>
+          <h2>«День борщу»</h2>
+          <p>Тематичне заняття «День борщу» стало для дітей цікавим зануренням у світ кулінарії, смаків і свіжих продуктів.</p>
+          <p>Разом із вихователями малюки вчилися розпізнавати овочі, підбирати інгредієнти й брали участь у простих практичних діях, які сприяли розвитку навичок, уваги та бажання творити. Така інтерактивна форма навчання допомагала збагачувати знання про їжу, смак і здоровий підхід до життя.</p>
+          <div class="event-meta"><span>Кулінарія</span><span>Пізнавальна активність</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="day-miru">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/day-miru-1.jpg" alt="День миру — діти беруть участь у спільній активності">
+          <div class="event-gallery">
+            <img src="images/day-miru-1.jpg" alt="Діти в колі на День миру">
+            <img src="images/day-miru-2.jpg" alt="Педагог разом із дітьми під час заохочення до миру">
+            <img src="images/day-miru-3.jpg" alt="Створення символу миру та єдності в дитячій групі">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Актуальна подія</span>
+          <h2>«День миру»</h2>
+          <p>День миру в дитячому колективі став нагодою для дітей та педагогів говорити про цінність миру, дружби, доброти та взаємоповаги.</p>
+          <p>Під час заходу діти разом створювали символічні образи миру, висловлювали свої думки й усвідомлювали, що добрі слова, підтримка й спільна праця допомагають будувати безпечне й тепле середовище для кожного. Такі активності формували в малюків почуття відповідальності за своє оточення та вміння цінувати мир і людяність.</p>
+          <div class="event-meta"><span>Мир</span><span>Дружба та доброта</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="distance-learning">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/distance-learning-1.jpg" alt="Дистанційне навчання — діти на відеозустрічі">
+          <div class="event-gallery">
+            <img src="images/distance-learning-1.jpg" alt="Відеозустріч з дітьми під час дистанційного навчання">
+            <img src="images/distance-learning-2.jpg" alt="Онлайн заняття в дитячому колективі">
+            <img src="images/distance-learning-3.jpg" alt="Спілкування педагогів з дітьми дистанційно">
+            <img src="images/distance-learning-4.jpg" alt="Дистанційна педагогічна взаємодія">
+            <img src="images/distance-learning-5.jpg" alt="Діти беруть участь у дистанційній освіті">
+            <img src="images/distance-learning-6.jpg" alt="Онлайн навчання з використанням відеозв’язку">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Освітній формат</span>
+          <h2>Дистанційне навчання</h2>
+          <p>Дистанційне навчання дозволяє дітям продовжувати пізнавати світ, спілкуватися з педагогами та залишатися в освітньому процесі навіть за умов обмежень.</p>
+          <p>Відеозустрічі, короткі інтерактивні вправи й спільна робота з навчальними матеріалами допомагають зберігати ритм занять, підтримувати інтерес до навчання та створювати відчуття близькості в команді. Такий формат надавав дітям стабільність, підтримував навчання в комфортному режимі й дозволяв зберігати емоційний контакт із педагогами.</p>
+          <div class="event-meta"><span>Онлайн</span><span>Навчання та спілкування</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="zsu-help">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/zsu-help-2.jpg" alt="Акція допомоги ЗСУ — діти з українським прапором">
+          <div class="event-gallery">
+            <img src="images/zsu-help-1.jpg" alt="Діти з гуманітарною допомогою в групі">
+            <img src="images/zsu-help-2.jpg" alt="Акція допомоги ЗСУ — основна фото в колі дітей">
+            <img src="images/zsu-help-3.jpg" alt="Групове фото з гуманітарною допомогою для військових">
+            <img src="images/zsu-help-4.jpg" alt="Підготовка упаковок із медиками і товарами для підтримки">
+            <img src="images/zsu-help-5.jpg" alt="Пакування гуманітарної допомоги для захисників">
+            <img src="images/zsu-help-6.jpg" alt="Остаточне пакування наборів і благодійної підтримки">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Патріотична акція</span>
+          <h2>Акція допомоги ЗСУ</h2>
+          <p>Акція допомоги ЗСУ стала для дітей і педагогів важливим способом висловити вдячність захисникам України та підтримати їх у важкий час.</p>
+          <p>Під час заходу діти вчилися розуміти значення доброти, патріотизму й людяності, а також відчувати свою причетність до спільної справи — підтримки тих, хто стоїть на захисті нашої країни. Такий формат події допомагав малюкам усвідомити, що турбота про інших є важливою складовою громадянської свідомості.</p>
+          <div class="event-meta"><span>Підтримка</span><span>Вдячність</span><span>Патріотизм</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="child-safety-week">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/child-safety-week-6.jpg" alt="Тиждень безпеки дитини — діти та педагоги на майданчику">
+          <div class="event-gallery">
+            <img src="images/child-safety-week-1.jpg" alt="Діти вчаться правилам безпеки в групі">
+            <img src="images/child-safety-week-2.jpg" alt="Практичні заняття з безпеки для дітей">
+            <img src="images/child-safety-week-3.jpg" alt="Діти з педагогом на інструктажі безпеки">
+            <img src="images/child-safety-week-4.jpg" alt="Розмови та вправи на тему безпеки дитини">
+            <img src="images/child-safety-week-5.jpg" alt="Групова активність зі сприятливою безпекою">
+            <img src="images/child-safety-week-7.jpg" alt="Діти навчаються правилам безпеки на відкритому повітрі">
+            <img src="images/child-safety-week-8.jpg" alt="Весняна активність із навчанням безпеки та творчими іграми">
+            <img src="images/child-safety-week-9.jpg" alt="Діти на майданчику під час активностей тижня безпеки">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Освітня тема</span>
+          <h2>Тиждень безпеки дитини</h2>
+          <p>Тиждень безпеки дитини допомагає дітям ознайомитися з основними правилами поведінки, попередження ризиків і правильними діями в різних життєвих ситуаціях.</p>
+          <p>Під час заходів діти вчилися розпізнавати небезпечні ситуації, дотримуватися правил особистої безпеки, краще орієнтуватися у повсякденному житті й відчувати себе впевненіше в соціальному середовищі. Такі заняття зміцнювали навички самозбереження та формували в дітей навички безпечної взаємодії з навколишнім середовищем.</p>
+          <div class="event-meta"><span>Безпека</span><span>Правила поведінки</span><span>Освіта</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+      <article class="event-story event-story-gallery-left" id="events-collection">
+        <div class="event-visuals">
+          <img class="event-story-image" src="images/events-1.jpg" alt="Події — святкові і творчі активності дітей">
+          <div class="event-gallery">
+            <img src="images/events-1.jpg" alt="Розважальна активність дітей у групі">
+            <img src="images/events-2.jpg" alt="Групова подія з участю дітей і педагогів">
+            <img src="images/events-3.jpg" alt="Тематичне заняття для дітей у дитячому садочку">
+            <img src="images/events-4.jpg" alt="Святкова активність з участю дітей">
+            <img src="images/events-5.jpg" alt="Спільна творча подія в садочку">
+            <img src="images/events-6.jpg" alt="Групова фотозйомка під час святкової події">
+            <img src="images/events-7.jpg" alt="Під час освітньої активності в садочку">
+            <img src="images/events-8.jpg" alt="Діти на святковому заході в просторі групи">
+            <img src="images/events-9.jpg" alt="Святкова композиція з дітьми на підході до події">
+            <img src="images/events-10.jpg" alt="Спільна подія з веселими активностями дітей">
+          </div>
+        </div>
+        <div>
+          <span class="event-label">Фотогалерея</span>
+          <h2>Фотогалерея</h2>
+          <p>Наші події об’єднують дітей, батьків і педагогів у спільних святах, творчих заняттях і активностях, що наповнюють щоденне життя радістю, натхненням і відчуттям спільноти.</p>
+          <p>У різні сезони діти беруть участь у святкових заходах, навчальних інтеракціях, практичних заняттях і рухливих іграх, які допомагають розвивати цікавість, впевненість і любов до життя. Кожна подія створює місце для емоцій, спілкування та нових вражень, які залишаються в душі дітей надовго.</p>
+          <div class="event-meta"><span>Свята</span><span>Творчість</span><span>Спільнота</span></div>
+          <a class="events-back" href="index.html#events-panel">← До сімейних та освітніх подій</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+</body>
+</html>
